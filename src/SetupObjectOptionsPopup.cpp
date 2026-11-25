@@ -1,3 +1,4 @@
+
 #include <Geode/Geode.hpp>
 #include <Geode/modify/SetupObjectOptionsPopup.hpp>
 #include <Geode/utils/NodeIDs.hpp>
@@ -10,7 +11,6 @@ $register_ids(SetupObjectOptionsPopup) {
     int menuOffset = 0;
 
     bool show_reverse = m_gameObject && m_gameObject->m_classType == GameObjectClassType::Effect && m_gameObject->canReverse();
-
     setIDSafe<CCLabelBMFont>(this, 0, "title-label");
     if (auto mainLayer = setIDSafe<CCLayer>(this, 0, "main-layer")) {
         setIDSafe<CCScale9Sprite>(mainLayer, 0, "background");
@@ -26,7 +26,6 @@ $register_ids(SetupObjectOptionsPopup) {
             "dont-boostx-label"
         );
         if(m_effectObject) setIDs(mainLayer, &labelOffset, "single-ptouch-label");
-
         setIDs(
             mainLayer,
             &labelOffset,
@@ -39,7 +38,6 @@ $register_ids(SetupObjectOptionsPopup) {
             "extended-collision-label"
         );
         if(m_effectObject) setIDs(mainLayer, &labelOffset, "center-effect-label");
-
         setIDs(
             mainLayer,
             &labelOffset,
@@ -52,7 +50,6 @@ $register_ids(SetupObjectOptionsPopup) {
             "no-audio-scale-label"
         );
         if(show_reverse) setIDs(mainLayer, &labelOffset, "reverse-label");
-
         if(auto mainMenu = setIDSafe<CCMenu>(mainLayer, 0, "main-menu")){
             setIDs(
                 mainMenu,
@@ -68,7 +65,6 @@ $register_ids(SetupObjectOptionsPopup) {
                 "dont-boostx-toggle"
             );
             if(m_effectObject) setIDs(mainMenu, &menuOffset, "single-ptouch-toggle");
-
             setIDs(
                 mainMenu,
                 &menuOffset,
@@ -81,7 +77,6 @@ $register_ids(SetupObjectOptionsPopup) {
                 "extended-collision-toggle"
             );
             if(m_effectObject) setIDs(mainMenu, &menuOffset, "center-effect-toggle");
-
             setIDs(
                 mainMenu,
                 &menuOffset,
@@ -98,19 +93,18 @@ $register_ids(SetupObjectOptionsPopup) {
     }
 
 };
-
 struct SetupObjectOptionsPopupIDs : Modify<SetupObjectOptionsPopupIDs, SetupObjectOptionsPopup> {
-	static void onModify(auto& self) {
-		if (!self.setHookPriority("SetupObjectOptionsPopup::init", GEODE_ID_PRIORITY)) {
-			log::warn("Failed to set SetupObjectOptionsPopup::init hook priority, node IDs may not work properly");
-		}
-	}
+    static void onModify(auto& self) {
+        if (!self.setHookPriority("SetupObjectOptionsPopup::init", GEODE_ID_PRIORITY)) {
+            log::warn("Failed to set SetupObjectOptionsPopup::init hook priority, node IDs may not work properly");
+        }
+    }
 
-	bool init(GameObject* p0, CCArray* p1) {
-		if (!SetupObjectOptionsPopup::init(p0, p1)) return false;
+    bool init(GameObject* p0, CCArray* p1) {
+        if (!SetupObjectOptionsPopup::init(p0, p1)) return false;
 
-		NodeIDs::get()->provide(this);
+        NodeIDs::get()->provide(this);
 
-		return true;
-	}
+        return true;
+    }
 };
